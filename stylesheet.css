@@ -1,0 +1,49 @@
+.tabColorValue{
+
+ -fx-background-color:  linear-gradient(to bottom, #b3dced 0%,#29b8e5 50%,#bce0ee 100%);
+}
+
+.MenubarTabPane{
+
+-fx-background-color:linear-gradient(to bottom, #cfe7fa 0%,#cfe7fa 74%,#cfe7fa 89%,#cfe7fa 100%,#cfe7fa 100%,#6393c1 100%);b8e5 100%,#b3dced 100%,#bce0ee 100%);
+
+}
+
+#tabColorValue:hover{
+
+-fx-background-color: linear-gradient(to bottom, #88bfe8 0%,#70b0e0 100%);
+
+}
+
+#lblShortcut{
+
+-fx-background-color: linear-gradient(to bottom, #3f4c6b 0%,#3f4c6b 100%);
+
+}
+#planButton{
+
+ -fx-background-color: linear-gradient(to bottom, #b8c6df 0%,#6d88b7 100%);
+
+}
+#planButton:hover{
+
+-fx-background-color: linear-gradient(to bottom, #b3dced 0%,#29b8e5 50%,#bce0ee 100%);
+
+}
+
+#planPane{
+
+-fx-background-color: linear-gradient(to bottom, #cfe7fa 0%,#cfe7fa 74%,#cfe7fa 89%,#cfe7fa 100%,#cfe7fa 100%,#6393c1 100%);b8e5 100%,#b3dced 100%,#bce0ee 100%);
+
+}
+
+#changablePaneColor{
+
+-fx-background-color: linear-gradient(to bottom, #b2e1ff 0%,#b2e1ff 86%,#b2e1ff 100%,#66b6fc 100%,#66b6fc 100%);
+
+}
+
+#internalLabels{
+
+
+}
