@@ -21,4 +21,11 @@ fetapp - which has the following .java , .fxml  and .css file files
 - FetHbGui(.fxml)
 - stylesheet(.css)
 
+The required liabries could be downloaded online and the images will not appear on the interface 
 
+the libraries are 
+ 
+ - derby.jar  and other database jars for derby
+ - text to speech jars 
+
+ 
