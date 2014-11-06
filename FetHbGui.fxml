@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="423.0" prefWidth="593.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fetapp.FetHbGuiController">
+   <children>
+      <SplitPane dividerPositions="0.2673434856175973" layoutX="1.0" layoutY="-1.0" prefHeight="423.0" prefWidth="594.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane id="tabColorValue" minHeight="0.0" minWidth="0.0" prefHeight="197.0" prefWidth="169.0" styleClass="tabColorValue" stylesheets="@stylesheet.css">
+               <children>
+                  <Label id="lblShortcut" fx:id="shortcutLabel" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="-1.0" layoutY="112.0" prefHeight="38.0" prefWidth="154.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="SHORTCUTS" textFill="#f1f2ef" underline="true">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button id="planButton" fx:id="btnDisplayNewPlanPaneShortCut" layoutX="26.0" layoutY="158.0" mnemonicParsing="false" onAction="#displayNewPlanPane" prefHeight="38.0" prefWidth="105.0" styleClass="planButton" text="New Plan" textFill="#f1f2ef" />
+                  <Button id="planButton" fx:id="btnDisplayNewDiaryPaneShortcut" layoutX="26.0" layoutY="204.0" mnemonicParsing="false" onAction="#displayNewDiaryPane" prefHeight="38.0" prefWidth="105.0" styleClass="planButton" text="New Diary Note" textFill="#f1f2ef" />
+                  <Button id="planButton" fx:id="btnDisplayNewTimeTablePaneShortCut" layoutX="26.0" layoutY="250.0" mnemonicParsing="false" onAction="#displayNewTimeTablePane" prefHeight="38.0" prefWidth="105.0" styleClass="planButton" text="Time Table Entry" textFill="#f1f2ef" />
+                  <Button id="planButton" fx:id="btnDisplayNewNotificationPaneShortCut" layoutX="24.0" layoutY="300.0" mnemonicParsing="false" onAction="#displayNewNotificationPane" prefHeight="38.0" prefWidth="105.0" styleClass="planButton" text="Notification Info" textFill="#f1f2ef" />
+                  <ImageView fitHeight="64.0" fitWidth="97.0" layoutX="44.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/award.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="homeTimeLabel" alignment="CENTER" layoutX="1.0" layoutY="365.0" prefHeight="27.0" prefWidth="155.0" text=".">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nameLabel" alignment="CENTER" layoutX="7.0" layoutY="4.0" prefHeight="38.0" prefWidth="142.0" visible="false">
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="421.0" prefWidth="449.0">
+               <children>
+                  <TabPane id="MenubarTabPane" layoutY="-5.0" opacity="0.85" prefHeight="85.0" prefWidth="434.0" stylesheets="@stylesheet.css" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab id="tabColorValue" fx:id="tabColorValue" onSelectionChanged="#setAllPlanVisible" styleClass="tabColorValue" text="Plan      ">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/order_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <content>
+                              <Pane id="planPane" prefHeight="200.0" prefWidth="200.0" styleClass="planPane">
+                                 <children>
+                                    <Button id="planButton" fx:id="btnDisplayNewPlanPane" layoutX="21.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayNewPlanPane" prefHeight="31.0" prefWidth="71.0" styleClass="planButton" text="New" textFill="#f1f2ef" />
+                                    <Button id="planButton" fx:id="btnDisplayViewPlanPane" layoutX="110.0" layoutY="13.0" mnemonicParsing="false" onAction="#displayViewPlanPane" prefHeight="31.0" prefWidth="71.0" styleClass="planButton" text="View" textFill="#f1f2ef" />
+                                    <Button id="planButton" fx:id="btnDeletePlanEntryFromTable" layoutX="199.0" layoutY="13.0" mnemonicParsing="false" onAction="#deletePlanRecordFromTable" prefHeight="31.0" prefWidth="71.0" styleClass="planButton" text="Delete" textFill="#f1f2ef" />
+                                    <ImageView fitHeight="48.0" fitWidth="59.0" layoutX="386.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/order_1.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                           </content>
+                        </Tab>
+                      <Tab id="tabColorValue" fx:id="tabColorValue" onSelectionChanged="#setAllDiaryVisible" styleClass="tabColorValue" text=" Diary         ">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/new-document-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <content>
+                              <Pane id="planPane" prefHeight="200.0" prefWidth="200.0" styleClass="planPane">
+                                 <children>
+                                    <Button id="planButton" fx:id="btnDisplayNewDiaryPane" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#displayNewDiaryPane" prefHeight="38.0" prefWidth="80.0" styleClass="planButton" text="New Note" textFill="#f1f2ef" />
+                                    <Button id="planButton" fx:id="btnDisplayViewDiaryTablePane" layoutX="102.0" layoutY="9.0" mnemonicParsing="false" onAction="#displayViewDiaryTablePane" prefHeight="38.0" prefWidth="80.0" styleClass="planButton" text="View Notes" textFill="#f1f2ef" />
+                                    <Button id="planButton" fx:id="btnDeleteDiaryEntryFromTable" layoutX="191.0" layoutY="9.0" mnemonicParsing="false" onAction="#deleteDiaryRecord" prefHeight="38.0" prefWidth="80.0" styleClass="planButton" text="Delete" textFill="#f1f2ef" />
+                                    <ImageView fitHeight="48.0" fitWidth="59.0" layoutX="386.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/new-document-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                           </content>
+                        </Tab>
+                        <Tab id="tabColorValue" fx:id="tabColorValue" onSelectionChanged="#setAllTimeTableVisible" styleClass="tabColorValue" text="Time Table">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Pane id="planPane" layoutX="5.0" layoutY="-3.0" prefHeight="56.0" prefWidth="434.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Button id="planButton" fx:id="btnDisplayNewTimeTablePane" layoutX="13.0" layoutY="8.0" mnemonicParsing="false" onAction="#displayNewTimeTablePane" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="New " textFill="#f1f2ef" />
+                                          <Button id="planButton" fx:id="btnDisplayViewTimeTablePane" layoutX="92.0" layoutY="9.0" mnemonicParsing="false" onAction="#displayViewTimeTablePane" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="View" textFill="#f1f2ef" />
+                                          <Button id="planButton" fx:id="btnDeleteTimeTableEntryFromTable" layoutX="254.0" layoutY="9.0" mnemonicParsing="false" onAction="#deleteTimeTableEntryFromTable" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="Delete" textFill="#f1f2ef" />
+                                          <Button id="planButton" fx:id="btnDisplayEditTimeTableFormPane" layoutX="172.0" layoutY="9.0" mnemonicParsing="false" onAction="#displayEditTimeTableFormPane" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="Edit" textFill="#f1f2ef" />
+                                          <ImageView fitHeight="48.0" fitWidth="53.0" layoutX="376.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/payroll.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/payroll.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Tab>
+                        <Tab id="tabColorValue" fx:id="tabColorValue" onSelectionChanged="#setAllNotificationVisible" styleClass="tabColorValue" text="Notifications">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Pane id="planPane" layoutX="52.0" layoutY="-1.0" prefHeight="56.0" prefWidth="434.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Button id="planButton" fx:id="btnSetNewNotification" layoutX="13.0" layoutY="9.0" mnemonicParsing="false" onAction="#displayNewNotificationPane" prefHeight="38.0" prefWidth="65.0" styleClass="planButton" text="Set" textFill="#f1f2ef" />
+                                          <Button id="planButton" fx:id="btnDisplayNotificationTableView" layoutX="87.0" layoutY="9.0" mnemonicParsing="false" onAction="#displayNotificationTableView" prefHeight="38.0" prefWidth="65.0" styleClass="planButton" text="View" textFill="#f1f2ef" />
+                                          <Button id="planButton" fx:id="btnDeleteNotificationFromTable" layoutX="160.0" layoutY="9.0" mnemonicParsing="false" onAction="#deleteNotificationFromTable" prefHeight="38.0" prefWidth="65.0" styleClass="planButton" text="Delete" textFill="#f1f2ef" />
+                                          <ImageView fitHeight="48.0" fitWidth="53.0" layoutX="372.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/information.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/information.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Tab>
+                        <Tab id="tabColorValue" styleClass="tabColorValue" text="About    ">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Pane id="planPane" prefHeight="57.0" prefWidth="430.0">
+                                       <children>
+                                          <Button id="planButton" fx:id="btnAboutTheAuthor" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#provideAuthorInfoToTheUser" prefHeight="38.0" prefWidth="92.0" text="Author" textFill="#f1f2ef">
+                                             <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/User-Files-icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button id="planButton" fx:id="btnLogOUt" layoutX="330.0" layoutY="10.0" mnemonicParsing="false" onAction="#displayHomePagePane" prefHeight="38.0" prefWidth="86.0" styleClass="planButton" text="LogOut" textFill="#f1f2ef">
+                                             <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/power.jpg" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button id="planButton" fx:id="btnAccountSetting" layoutX="235.0" layoutY="10.0" mnemonicParsing="false" onAction="#displayAccountingSettingPaneForNewAccountSetup" prefHeight="38.0" prefWidth="86.0" styleClass="planButton" text="Accounts" textFill="#f1f2ef">
+                                             <graphic>
+                                                <ImageView fitHeight="21.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/add.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+                  <Pane id="changablePaneColor" fx:id="newPlanPane" layoutY="79.0" prefHeight="342.0" prefWidth="430.0" styleClass="changablePaneColor" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="430.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="Make a Study Plan Below" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="planTitleTextField" layoutX="123.0" layoutY="48.0" prefHeight="25.0" prefWidth="285.0" promptText="enter a title for your plan" />
+                        <Label id="internalLabels" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="48.0" prefHeight="25.0" prefWidth="78.0" styleClass="internalLabels" stylesheets="@stylesheet.css" text="Plan Title" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label id="internalLabels" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="159.0" prefHeight="25.0" prefWidth="78.0" styleClass="internalLabels" stylesheets="@stylesheet.css" text="Content" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label id="internalLabels" alignment="CENTER" contentDisplay="CENTER" layoutX="12.0" layoutY="101.0" prefHeight="25.0" prefWidth="78.0" styleClass="internalLabels" stylesheets="@stylesheet.css" text="Day" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="planDaysConbo" layoutX="123.0" layoutY="101.0" prefWidth="150.0" />
+                        <TextArea fx:id="planContentTextArea" layoutX="123.0" layoutY="159.0" prefHeight="95.0" prefWidth="285.0" />
+                        <Button id="planButton" fx:id="btnSaveNewStudyPlan" layoutX="102.0" layoutY="280.0" mnemonicParsing="false" onAction="#saveNewStudyPlan" prefHeight="38.0" prefWidth="78.0" styleClass="planButton" text="Save" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/save.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="btnCLearPlanPaneFileds" layoutX="244.0" layoutY="280.0" mnemonicParsing="false" onAction="#cLearPlanPaneFileds" prefHeight="38.0" prefWidth="78.0" styleClass="planButton" text="Cancel" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="viewPlanPane" layoutY="80.0" prefHeight="342.0" prefWidth="430.0" styleClass="changablePaneColor" stylesheets="@stylesheet.css" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="430.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="VIEW YOUR PLANS BELOW" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="planTableView" layoutY="25.0" prefHeight="317.0" prefWidth="430.0">
+                          <columns>
+                              <TableColumn fx:id="planIDColumn" prefWidth="34.0" text="Column X" visible="false" />
+                            <TableColumn fx:id="planDayColumn" prefWidth="125.0" text="Day" />
+                            <TableColumn fx:id="playActivityColumn" prefWidth="304.0" text="Plan Activity" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="newDiaryPane" layoutY="79.0" prefHeight="342.0" prefWidth="430.0" styleClass="changablePaneColor" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="434.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="Enter A New Diary Content Below" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="43.0" prefHeight="19.0" prefWidth="43.0" text="Date" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="86.0" prefHeight="19.0" prefWidth="54.0" text="Content" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="diaryDatePicker" layoutX="115.0" layoutY="40.0" prefHeight="25.0" prefWidth="216.0" promptText="select a date" />
+                        <TextArea fx:id="diaryContentTextArea" layoutX="115.0" layoutY="78.0" prefHeight="186.0" prefWidth="308.0" promptText="enter the dary content here " />
+                        <Button id="planButton" fx:id="btnSaveDiaryContent" layoutX="115.0" layoutY="277.0" mnemonicParsing="false" onAction="#saveDiaryNewDiaryContent" prefHeight="38.0" prefWidth="80.0" styleClass="planButton" text="Save" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/save.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="btnClearDiaryInputFields" layoutX="229.0" layoutY="277.0" mnemonicParsing="false" onAction="#clearDiaryInputFields" prefHeight="38.0" prefWidth="80.0" styleClass="planButton" text="Cancel" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="viewDiaryContentPane" layoutY="80.0" prefHeight="342.0" prefWidth="430.0" styleClass="changablePaneColor" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="430.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="View All your Diary Contents Below" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="diaryTableView" layoutX="-2.0" layoutY="25.0" prefHeight="317.0" prefWidth="434.0">
+                          <columns>
+                              <TableColumn fx:id="diaryIDColumn" minWidth="0.0" prefWidth="0.0" text="Column X" />
+                            <TableColumn fx:id="diaryDateColumn" prefWidth="101.0" text="Date" />
+                            <TableColumn fx:id="diaryContentColumn" prefWidth="332.0" text="Note Content" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="newTimeTableContentPane" layoutY="79.0" prefHeight="342.0" prefWidth="430.0" styleClass="changablePaneColor" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" layoutY="-5.0" prefHeight="25.0" prefWidth="430.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="Make A New Time Table Entry Below" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="54.0" prefHeight="25.0" prefWidth="54.0" text="Day" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="113.0" prefHeight="25.0" prefWidth="54.0" text="Time" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="171.0" prefHeight="25.0" prefWidth="54.0" text="Course" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="timeTableCourseTextField" layoutX="95.0" layoutY="171.0" prefHeight="25.0" prefWidth="216.0" promptText="enter the course name" />
+                        <ComboBox fx:id="timeTableDayCombo" layoutX="95.0" layoutY="54.0" opacity="0.88" prefHeight="25.0" prefWidth="216.0" promptText="choose day" />
+                        <Button id="planButton" fx:id="btnSaveTimeTableRecords" layoutX="94.0" layoutY="241.0" mnemonicParsing="false" onAction="#saveNewTimeTableEntry" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="Save" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/save.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="btnClearTimeTableInputFields" layoutX="188.0" layoutY="241.0" mnemonicParsing="false" onAction="#clearTimeTableInputFields" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="Cancel" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ComboBox fx:id="timeTableTimeCombo" layoutX="91.0" layoutY="113.0" opacity="0.88" prefHeight="25.0" prefWidth="216.0" promptText="select the time interval" />
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="viewTimeTablePane" layoutY="79.0" prefHeight="342.0" prefWidth="434.0" styleClass="changablePaneColor" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="-1.0" prefHeight="25.0" prefWidth="434.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="Time Table Section " textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="timeTableTableView" layoutY="24.0" prefHeight="317.0" prefWidth="430.0">
+                          <columns>
+                              <TableColumn fx:id="timeTableIDColumn" minWidth="0.0" prefWidth="0.0" text="id" />
+                            <TableColumn fx:id="timeTableDayColumn" minWidth="0.0" prefWidth="116.0" text="Day" />
+                            <TableColumn fx:id="timeTableTimeColumn" prefWidth="132.0" text="Time" />
+                              <TableColumn fx:id="timeTableCourseNameColumn" minWidth="0.0" prefWidth="179.0" text="Course Name" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="timeTableEditFrom" layoutX="-4.0" layoutY="80.0" prefHeight="342.0" prefWidth="434.0" styleClass="changablePaneColor" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" layoutX="-4.0" layoutY="2.0" prefHeight="25.0" prefWidth="443.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="Edit Your Time Table Here..." textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="54.0" prefHeight="25.0" prefWidth="54.0" text="Day" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="113.0" prefHeight="25.0" prefWidth="54.0" text="Time" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="171.0" prefHeight="25.0" prefWidth="54.0" text="Course" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="editCourseTextField" layoutX="95.0" layoutY="171.0" prefHeight="25.0" prefWidth="216.0" promptText="change the course" />
+                        <ComboBox fx:id="editTimeTableDayCombo" layoutX="95.0" layoutY="54.0" prefHeight="25.0" prefWidth="216.0" promptText="Change the day" />
+                        <Button id="planButton" fx:id="btnUpdateTimeTableRecords" layoutX="94.0" layoutY="241.0" mnemonicParsing="false" onAction="#saveUpdateTimeTableRecords" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="Save" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="22.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/save.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="BtnCancelTimeTableEditAction" layoutX="188.0" layoutY="241.0" mnemonicParsing="false" onAction="#CancelEditTimeTableRecord" prefHeight="38.0" prefWidth="72.0" styleClass="planButton" text="Cancel" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <ComboBox fx:id="EditTimeTableTimeCombo" layoutX="95.0" layoutY="113.0" prefHeight="25.0" prefWidth="216.0" promptText="Change the " />
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="homePageane" layoutX="-4.0" prefHeight="421.0" prefWidth="434.0" visible="false">
+                     <children>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" layoutY="303.0" prefHeight="38.0" prefWidth="430.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="WELCOME TO FetHB" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Button id="planButton" fx:id="btnLogin" layoutX="80.0" layoutY="114.0" mnemonicParsing="false" onAction="#displayLoginPane" prefHeight="45.0" prefWidth="89.0" text="Login" textFill="#d6f50f">
+                           <graphic>
+                              <ImageView fitHeight="33.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/User-Files-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="btnAccountSetting2" layoutX="251.0" layoutY="114.0" mnemonicParsing="false" onAction="#displayAccountingSettingPaneFromHome" prefHeight="45.0" prefWidth="86.0" styleClass="planButton" text="Other" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/refresh.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="newNotificationPane" layoutY="80.0" prefHeight="342.0" prefWidth="430.0" visible="false">
+                     <children>
+                        <Label layoutX="16.0" layoutY="62.0" prefHeight="25.0" prefWidth="181.0" text="Type Your Notification Here" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextArea id="tabColorValue" fx:id="NewNotificationTextArea" layoutX="197.0" layoutY="62.0" prefHeight="64.0" prefWidth="226.0" promptText="Not more than 90 characters " />
+                        <Button id="planButton" fx:id="btnSaveNewNotification" layoutX="125.0" layoutY="188.0" mnemonicParsing="false" onAction="#saveNewNotification" prefHeight="45.0" prefWidth="80.0" text="Save">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/save.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="btnClearNewNotificationEntryField" layoutX="227.0" layoutY="188.0" mnemonicParsing="false" onAction="#clearNewNotificationEntryField" prefHeight="45.0" prefWidth="80.0" text="Cancel">
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label layoutX="16.0" layoutY="24.0" prefHeight="25.0" prefWidth="119.0" text="Select Date" textFill="#5310fc">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="notificationDatePicker" layoutX="197.0" layoutY="24.0" prefHeight="25.0" prefWidth="226.0" promptText="choose date" />
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="viewNotificationPane" layoutX="-6.0" layoutY="77.0" prefHeight="342.0" prefWidth="443.0">
+                     <children>
+                        <TableView fx:id="notificationTableView" prefHeight="342.0" prefWidth="434.0">
+                          <columns>
+                              <TableColumn fx:id="notificationDateColumn" prefWidth="96.0" text="Date  " />
+                            <TableColumn fx:id="notificationTimeColumn" prefWidth="94.0" text="Time    " />
+                            <TableColumn fx:id="NotificationContentColumn" prefWidth="243.0" text="Notification Content" />
+                              <TableColumn fx:id="notificationIDCol" prefWidth="10.0" text="Column X" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="loginPane" layoutX="-4.0" prefHeight="421.0" prefWidth="434.0" visible="false">
+                     <children>
+                        <TextField fx:id="loginUserNameFieldInfo" layoutX="168.0" layoutY="98.0" onMouseClicked="#setTryagainLabelEmpty" prefHeight="38.0" prefWidth="234.0" promptText="user name " />
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="98.0" prefHeight="38.0" prefWidth="135.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="NAME" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label id="lblShortcut" alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="152.0" prefHeight="38.0" prefWidth="135.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="PASSWORD" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="loginPasswordFieldInfo" layoutX="168.0" layoutY="149.0" prefHeight="38.0" prefWidth="234.0" promptText="password" />
+                        <Button id="planButton" fx:id="btnloginToApp" layoutX="102.0" layoutY="242.0" mnemonicParsing="false" onAction="#validateLoginCredentials" prefHeight="38.0" prefWidth="97.0" text="Login" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Register-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="btnCancelEdit" layoutX="215.0" layoutY="242.0" mnemonicParsing="false" onAction="#cancelLoginCredentialsAndBackToHome" prefHeight="38.0" prefWidth="97.0" text="Cancel" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/power.jpg" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="warningLabel" alignment="CENTER" layoutX="168.0" layoutY="31.0" prefHeight="38.0" prefWidth="234.0">
+                           <font>
+                              <Font name="System Bold Italic" size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane id="changablePaneColor" fx:id="accountSettingPane" layoutY="-2.0" prefHeight="421.0" prefWidth="430.0" visible="false">
+                     <children>
+                        <TextField fx:id="saveuserNameTextField" layoutX="191.0" layoutY="87.0" prefHeight="25.0" prefWidth="216.0" promptText="user name " />
+                        <PasswordField fx:id="saveConfirmPasswordTextField" layoutX="191.0" layoutY="146.0" prefHeight="25.0" prefWidth="216.0" promptText="password" />
+                        <PasswordField fx:id="savePasswordTextField" layoutX="191.0" layoutY="209.0" prefHeight="25.0" prefWidth="216.0" promptText="confirm password" />
+                        <Label alignment="CENTER" layoutX="20.0" layoutY="87.0" prefHeight="25.0" prefWidth="154.0" text="USER NAME">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="26.0" layoutY="146.0" prefHeight="25.0" prefWidth="154.0" text="PASSWORD">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="26.0" layoutY="209.0" prefHeight="25.0" prefWidth="154.0" text="CONFIRM PASSWORD">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button id="planButton" fx:id="btnSaveAccountSetting" layoutX="99.0" layoutY="264.0" mnemonicParsing="false" onAction="#saveAccountSetting" prefHeight="38.0" prefWidth="86.0" styleClass="planButton" text="Save" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/save.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button id="planButton" fx:id="btnCancelUAccountSetUp" layoutX="200.0" layoutY="264.0" mnemonicParsing="false" onAction="#CancelAccountingSettingPane" prefHeight="38.0" prefWidth="86.0" styleClass="planButton" text="Cancel" textFill="#f1f2ef">
+                           <graphic>
+                              <ImageView fitHeight="21.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label id="lblShortcut" fx:id="shortcutLabel1" alignment="CENTER" contentDisplay="CENTER" layoutX="3.0" layoutY="24.0" prefHeight="38.0" prefWidth="423.0" styleClass="lblShortcut" stylesheets="@stylesheet.css" text="SetUp a new Account Below" textFill="#f1f2ef">
+                           <font>
+                              <Font name="System Bold Italic" size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
