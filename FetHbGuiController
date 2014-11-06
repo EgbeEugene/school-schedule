@@ -1,0 +1,1803 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package fetapp;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.Calendar;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
+
+
+/**
+ * FXML Controller class
+ *
+ * @author EUGENE
+ */
+public class FetHbGuiController implements Initializable {
+    @FXML
+    private Tab tabColorValue;
+    @FXML
+    private Button btnDisplayNewPlanPane;
+    @FXML
+    private Button btnDisplayViewPlanPane;
+    @FXML
+    private Button btnDeletePlanEntryFromTable;
+    @FXML
+    private Button btnDisplayNewDiaryPane;
+    @FXML
+    private Button btnDisplayViewDiaryTablePane;
+    @FXML
+    private Button btnDeleteDiaryEntryFromTable;
+    @FXML
+    private Button btnDisplayNewTimeTablePane;
+    @FXML
+    private Button btnDisplayViewTimeTablePane;
+    @FXML
+    private Button btnDeleteTimeTableEntryFromTable;
+    @FXML
+    private Button btnDisplayEditTimeTableFormPane;
+    @FXML
+    private Button btnLogOUt;
+    @FXML
+    private Pane newPlanPane;
+    @FXML
+    private Pane viewPlanPane;
+   
+    @FXML
+    private DatePicker diaryDatePicker;
+    @FXML
+    private TextArea diaryContentTextArea;
+ 
+    //THIS IS THE TABLE INFORMATION FOR THE PLAN TABLE
+  
+    @FXML
+    private TableView<Items.SimpleString> planTableView;
+      @FXML
+    private TableColumn<Items.SimpleString, String> planIDColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> planDayColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> playActivityColumn;
+
+    //THIS IS THE TABLE INFORMATION FOR THE DIARY TABLE
+    
+    @FXML
+    private TableView<Items.SimpleString> diaryTableView;
+    @FXML
+    private TableColumn<Items.SimpleString, String> diaryIDColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> diaryDateColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> diaryContentColumn;
+    
+    //THIS IS THE TABLE INFORMATION FOR THE DIARY TABLE
+    
+    @FXML
+    private TableView<Items.SimpleString> timeTableTableView;
+    @FXML
+    private TableColumn<Items.SimpleString, String> timeTableIDColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> timeTableDayColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> timeTableTimeColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> timeTableCourseNameColumn;
+     @FXML
+    private TableColumn<Items.SimpleString, String> notificationDateColumn;
+    @FXML
+    private TableView<Items.SimpleString> notificationTableView;
+    @FXML
+    private TableColumn<Items.SimpleString, String> notificationTimeColumn;
+    @FXML
+    private TableColumn<Items.SimpleString, String> NotificationContentColumn;
+
+    
+    @FXML
+    private Pane newDiaryPane;
+    @FXML
+    private Button btnSaveDiaryContent;
+    @FXML
+    private Button btnClearDiaryInputFields;
+
+    @FXML
+    private Pane newTimeTableContentPane;
+    @FXML
+    private Button btnSaveTimeTableRecords;
+    @FXML
+    private Button btnClearTimeTableInputFields;
+    @FXML
+    private Pane viewTimeTablePane;
+    @FXML
+    private Pane timeTableEditFrom;
+    @FXML
+    private Button btnUpdateTimeTableRecords;
+    @FXML
+    private Button BtnCancelTimeTableEditAction;
+    @FXML
+    private Pane homePageane;
+    @FXML
+    private Pane viewDiaryContentPane;
+
+    @FXML
+    private TextField planTitleTextField;
+    @FXML
+    private ComboBox<Items.ComboItem> planDaysConbo;
+    @FXML
+    private TextArea planContentTextArea;
+    @FXML
+    private Button btnSaveNewStudyPlan;
+    @FXML
+    private Button btnCLearPlanPaneFileds;
+    
+    private TextField timeTableTimeTextField;
+    @FXML
+    private TextField timeTableCourseTextField;
+    @FXML
+    private ComboBox<Items.ComboItem> timeTableDayCombo;
+    @FXML
+    private ComboBox<Items.ComboItem> timeTableTimeCombo;
+    
+    @FXML
+    private ComboBox<Items.ComboItem> editTimeTableDayCombo;
+    @FXML
+    private ComboBox<Items.ComboItem> EditTimeTableTimeCombo;
+    @FXML
+    private TextField editCourseTextField;
+ 
+  
+ 
+    /**
+     * Initializes the controller class.
+     */
+//here we instatiate the database helper class 
+    
+  DatabaseHelper db; 
+  Items.TableClass tc;
+  SimpleDateFormat sdf;
+  Items.Timer time;
+  Items.tts text_to_speech;
+  
+  
+  
+  //this section handles the time on the app
+  
+ //  private final SimpleDateFormat simple_date_format  = new SimpleDateFormat("hh:mm");
+    
+   
+  
+     
+     @FXML
+     Label homeTimeLabel;
+    private final SimpleDateFormat timeformat;
+   
+    @FXML
+    private Button btnSetNewNotification;
+    @FXML
+    private Button btnAboutTheAuthor;
+    @FXML
+    private Pane newNotificationPane;
+    @FXML
+    private TextArea NewNotificationTextArea;
+    @FXML
+    private Button btnSaveNewNotification;
+    @FXML
+    private Button btnClearNewNotificationEntryField;
+    @FXML
+    private Button btnDisplayNotificationTableView;
+    @FXML
+    private Pane viewNotificationPane;
+    @FXML
+    private DatePicker notificationDatePicker;
+  
+   
+    SimpleDateFormat dateOnly;
+    Date dNow ;
+    @FXML
+    private Pane loginPane;
+    @FXML
+    private Button btnLogin;
+    @FXML
+    private Button btnCancelEdit;
+  
+    
+   
+    @FXML
+    private Button btnDisplayNewPlanPaneShortCut;
+    @FXML
+    private Button btnDisplayNewDiaryPaneShortcut;
+    @FXML
+    private Button btnDisplayNewTimeTablePaneShortCut;
+    @FXML
+    private Button btnDisplayNewNotificationPaneShortCut;
+    @FXML
+    private Button btnAccountSetting;
+    @FXML
+    private Pane accountSettingPane;
+    @FXML
+    private TextField saveuserNameTextField;
+    @FXML
+    private PasswordField saveConfirmPasswordTextField;
+    @FXML
+    private PasswordField savePasswordTextField;
+    @FXML
+    private Button btnAccountSetting2;
+    @FXML
+    private Button btnSaveAccountSetting;
+    @FXML
+    private Button btnCancelUAccountSetUp;
+    @FXML
+    private Button btnloginToApp;
+    @FXML
+    private Label warningLabel;
+    @FXML
+    private TextField loginUserNameFieldInfo;
+    @FXML
+    private PasswordField loginPasswordFieldInfo;
+    @FXML
+    private Label shortcutLabel;
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Button btnDeleteNotificationFromTable;
+    @FXML
+    private Label shortcutLabel1;
+    @FXML
+    private TableColumn<Items.SimpleString, String> notificationIDCol;
+    
+    public FetHbGuiController() {
+        this.timeformat = new SimpleDateFormat("hh:mm");
+    }
+   
+
+    
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+       
+        
+     
+   try {
+       
+       warningLabel.setText("");
+       
+      // String user="user" ;
+       
+      // String loginq =  "INSERT INTO fet.ACCOUNT(fet.ACCOUNT.NAME , fet.ACCOUNT.PASSWORD) VALUES('"+user+"','"+user+"')";
+       
+      // System.out.println(loginq);
+     
+       
+       
+       clearPanes();
+       setDisable();
+       homePageane.setVisible(true);
+       
+       dateOnly  = new SimpleDateFormat("yyyy-MM-dd");
+       dNow = new Date();
+       
+       //THIS IS USED FOR THE TIME DISPLAY
+       
+       
+       try {
+           
+           db = new DatabaseHelper();
+           tc = new Items.TableClass();
+           sdf = new SimpleDateFormat("yyyy-MM-dd");
+           text_to_speech = new Items.tts();
+        //     db.setQuery(loginq);
+           
+           updateTime();
+           
+           
+       }
+       catch (Exception e) {
+           
+           System.out.println("database heler not instatiated due to --->");
+           
+           e.printStackTrace();
+       }
+       
+       text_to_speech.sayText(" Thanks For Starting HandBook Application");
+       
+   } catch (IllegalStateException ex) {
+            Logger.getLogger(FetHbGuiController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    }    
+
+    
+//------------------------------------------------ DISPLAY PANE METHODS ARE PLACED IN THIS SECTION --------------------------------||
+    
+    @FXML
+    private void displayNewPlanPane(ActionEvent event) {
+    
+          clearPanes();
+          newPlanPane.setVisible(true);  
+          loadDaysCombo();
+                   
+                    btnDisplayNewPlanPane.setVisible(false);
+                    btnDisplayViewPlanPane.setVisible(true);
+                     btnDisplayNewPlanPaneShortCut.setVisible(false);
+                     btnDisplayNewDiaryPaneShortcut.setVisible(true);
+                     btnDisplayNewTimeTablePaneShortCut.setVisible(true);
+                     btnDisplayNewNotificationPaneShortCut.setVisible(true);      
+                     
+          
+    }
+
+    @FXML
+    private void displayViewPlanPane(ActionEvent event) {
+      
+         clearPanes();
+         
+         viewPlanPane.setVisible(true);
+         btnDisplayViewPlanPane.setVisible(false);
+         btnDisplayNewPlanPane.setVisible(true);
+         displayPlanTable();
+         
+    }
+
+    @FXML
+    private void displayNewDiaryPane(ActionEvent event) {
+       
+        clearPanes();
+        newDiaryPane.setVisible(true);
+        
+        //set the date to the system date 
+                     
+                     btnDisplayNewDiaryPane.setVisible(false);
+                     btnDisplayNewDiaryPane.setVisible(true);
+                     btnDisplayViewDiaryTablePane.setVisible(true);
+                     btnDisplayNewPlanPaneShortCut.setVisible(true);
+                     btnDisplayNewDiaryPaneShortcut.setVisible(false);
+                     btnDisplayNewTimeTablePaneShortCut.setVisible(true);
+                     btnDisplayNewNotificationPaneShortCut.setVisible(true);   
+        diaryDatePicker.setValue(LocalDate.now());
+        
+    
+    }
+
+    @FXML
+    private void displayViewDiaryTablePane(ActionEvent event) {
+  
+      clearPanes();
+      viewDiaryContentPane.setVisible(true);
+      btnDisplayViewDiaryTablePane.setVisible(false);
+      displayDiaryTable(); 
+      
+    }
+
+    @FXML
+    private void displayNewTimeTablePane(ActionEvent event) {
+         clearPanes();
+                     btnDisplayNewTimeTablePane.setVisible(false);
+                     btnDisplayViewTimeTablePane.setVisible(true);
+                     btnDisplayEditTimeTableFormPane.setVisible(true);
+                     btnDisplayViewTimeTablePane.setVisible(true);
+                     btnDisplayEditTimeTableFormPane.setVisible(true);
+                     newTimeTableContentPane.setVisible(true);
+                      btnDisplayNewPlanPaneShortCut.setVisible(true);
+                     btnDisplayNewDiaryPaneShortcut.setVisible(true);
+                     btnDisplayNewTimeTablePaneShortCut.setVisible(false);
+                     btnDisplayNewNotificationPaneShortCut.setVisible(true);   
+          //load the days combo box here 
+          loadTimeTableTimeCombo();
+          loadTimeTableDayCombo();
+ 
+    }
+
+    @FXML
+    private void displayViewTimeTablePane(ActionEvent event) {
+         clearPanes();
+         viewTimeTablePane.setVisible(true);
+         btnDisplayViewTimeTablePane.setVisible(false);
+         btnDisplayNewTimeTablePane.setVisible(true);
+         btnDisplayEditTimeTableFormPane.setVisible(true);
+         
+         btnDisplayNewTimeTablePane.setVisible(true);
+         btnDisplayEditTimeTableFormPane.setVisible(true);
+         
+        Dialogs.create().
+                    title("delete Tip").
+                    masthead("To delete a record, select the record from the table"
+                            + "and click the delete button on the table menu ").
+                    message("").showInformation();
+        
+         displayTimeTableTable();
+         
+        
+    }
+
+     /***
+        THIS METHOD USED TO DELETE  A RECORD FROM THE 
+        TIME TABLE TABLE VIEW
+  */
+    
+    @FXML
+    private void deleteTimeTableEntryFromTable(ActionEvent event) {
+             
+         deleteTimeTalbeRecord();
+         clearPanes();
+         viewTimeTablePane.setVisible(true);
+         displayTimeTableTable();
+         
+    
+    }
+
+    @FXML
+    private void displayEditTimeTableFormPane(ActionEvent event) {
+    
+         
+             String col1 = this.timeTableTableView.getSelectionModel().getSelectedItem().col1.get();
+             String col2 = this.timeTableTableView.getSelectionModel().getSelectedItem().col1.get();
+         
+             Action confirmer = Dialogs.create().
+                    title("Delete confirmation").
+                    masthead("you want to edit Record on "+col2).
+                    message("Are you sure you want to continue?").showConfirm();
+       
+             if (confirmer == Dialog.Actions.YES){
+          
+         clearPanes();
+         timeTableEditFrom.setVisible(true);
+         loadeditTimeTableDayCombo();
+         loadEditTimeTableTimeCombo();
+     
+           }else{
+                              
+        Dialogs.create().message("EDIT CANCELED ").showWarning() ;
+             
+      }
+         
+  }
+
+    @FXML
+    private void displayHomePagePane(ActionEvent event) {
+
+           Action confirmer = Dialogs.create().
+                    title("LOg out").
+                    masthead("You are about to logout ").
+                    message("Are you sure you want to continue?").showConfirm();
+       
+            if (confirmer == Dialog.Actions.YES){
+          
+                   clearPanes();
+                   homePageane.setVisible(true);
+                      // time.start(homeTimeLabel); 
+        setDisable();
+                
+            }else{
+                              
+        Dialogs.create().message("Welcome Back  ").showInformation();
+             
+      } 
+
+    }
+    
+    //------------------------------------------   CONTROLLER SPECIFIC METHODS ARE IMPLEMENTED BELOW -------------------------------------||
+    
+  
+    //THIS METHOD INSERTS A NEW PLAN INTO THE DATABASE FORM STORAGE 
+    //THIS HEPPENS WHEN THE SAVE BUTTON ON THE NEW PLAN PANE HAS BEEN 
+    //PRESSED
+    
+    @FXML
+    private void saveNewStudyPlan(ActionEvent event) {
+    
+        //get the selected item from the combo box from the combo box
+        
+        String title = planTitleTextField.getText();
+        String planText = planContentTextArea.getText(); 
+        Items.ComboItem dc = (Items.ComboItem) planDaysConbo.getSelectionModel().getSelectedItem();
+    
+     String query = "INSERT INTO fet.PLAN(fet.PLAN.TITLE ,fet.PLAN.CONTENT, fet.PLAN.PLAN_DAY)"
+             + " VALUES('"+title+"','"+planText+"','"+dc.getValue()+"') ";
+     
+        System.out.println(query);
+         
+        try {
+          
+            if (!title.isEmpty() && !planText.isEmpty()) {
+             
+                  db.setQuery(query);
+                  Dialogs.create().title("success").message("PLAN SAVED SUCCESSFULLY ").showInformation();
+                 text_to_speech.sayText("new plan has been saved ");
+            
+            }else{
+       
+                Dialogs.create().title("empty Fields").message("please check all the fields").showInformation();
+
+            }
+          
+
+            //after that we reload the pane back to have a fresh 
+           //untampered page
+         
+          planContentTextArea.setText("");
+          planTitleTextField.setText("");
+          
+        //  planDaysConbo.getItems().clear();
+          this.planDaysConbo.getSelectionModel().selectFirst();
+          
+        } catch (Exception e) {
+     
+           e.printStackTrace();
+        }
+     
+       
+        
+    }
+    
+    //THIS METHOD IS USED TO DELETE THE CHOSEN ENTRY OF THE PLAN TABLE 
+    //WHEN THE PLAN IS CHOSEN AND THE DELTE BUTTON IS PRESSED 
+    
+    
+        @FXML
+    private void deletePlanRecordFromTable(ActionEvent event) {
+    
+        deletePlanRecordFromTable();
+        
+        // after deleteting the record the table is redisplayed
+         clearPanes();
+         viewPlanPane.setVisible(true);
+         displayPlanTable(); 
+    
+    }
+       
+
+
+    
+    @FXML
+    private void cLearPlanPaneFileds(ActionEvent event) {
+        
+   // planContentTextArea.setText("");
+   // planTitleTextField.setText("");
+    clearPanes();
+    newPlanPane.setVisible(true);     
+        
+    }
+  
+     //THIS METHOD INSERTS A NEW DIARY CONTENT INTO THE DATABASE FORM STORAGE 
+    //THIS HEPPENS WHEN THE SAVE BUTTON ON THE NEW PLAN PANE HAS BEEN 
+    //PRESSED
+  
+    @FXML
+    private void saveDiaryNewDiaryContent(ActionEvent event) throws ParseException {
+     
+    
+    String diary_date = sdf.format(sdf.parse(diaryDatePicker.getValue().toString()));
+    String content = diaryContentTextArea.getText();    
+    String query ="INSERT INTO fet.DIARY(fet.DIARY.DIARY_DATE , fet.DIARY.CONTENT)"
+           
+                 +" VALUES('"+diary_date+"' , '"+content+"')";  
+        
+    System.out.println(query);
+        try {
+            
+        if(!content.isEmpty()){
+           db.setQuery(query);
+           Dialogs.create().title("success").message("DIARY SAVED SUCCESSFULLY ").showInformation();
+           text_to_speech.sayText("diary entry has been saved ");
+  
+            //CLEAR THE INPUT FIELDS OF THE DATE AND DIARY_CONTENT
+           
+           clearPanes();
+           newDiaryPane.setVisible(true);
+           diaryContentTextArea.setText("");
+           diaryDatePicker.setValue(LocalDate.now());
+           
+            
+        }else
+        {
+            
+         Dialogs.create().title("notification Error").message("please enter a notification content").showError();
+           
+        }
+        
+           
+        } catch (Exception e) {
+        
+       //       Dialogs.create().title("Error").message("DIARY CONTENT WAS NOT SAVED").showError();
+           e.printStackTrace();
+        }
+        
+    }
+
+      @FXML
+    private void deleteDiaryRecord(ActionEvent event) {
+        
+         deleteDiaryRecordFromTable();
+     
+         clearPanes();
+         viewDiaryContentPane.setVisible(true);
+         displayDiaryTable(); 
+        
+    }
+   
+    @FXML
+    private void clearDiaryInputFields(ActionEvent event) {
+    
+       
+           newDiaryPane.setVisible(true);
+           diaryContentTextArea.setText("");
+           diaryDatePicker.setValue(LocalDate.now());
+    }
+
+    
+     //THIS METHOD INSERTS A NEW TIME ATBLE CONTENT INTO THE DATABASE FORM STORAGE 
+     //THIS HEPPENS WHEN THE SAVE BUTTON ON THE NEW PLAN PANE HAS BEEN 
+     //PRESSED
+    
+    @FXML
+    private void saveNewTimeTableEntry(ActionEvent event) {
+    
+         //get the selected item from the combo box from the combo box
+      
+        Items.ComboItem dc = (Items.ComboItem) timeTableDayCombo.getSelectionModel().getSelectedItem();
+         Items.ComboItem tt = (Items.ComboItem) timeTableTimeCombo.getSelectionModel().getSelectedItem();
+        String course = timeTableCourseTextField.getText();
+        
+     String query = "INSERT INTO fet.TIME_TABLE(fet.TIME_TABLE.DAY ,fet.TIME_TABLE.TIME_TABLE_TIME, fet.TIME_TABLE.COURSE_NAME)"
+             + " VALUES('"+dc.getValue()+"','"+tt.getValue()+"','"+course+"') ";
+     
+         System.out.println(query);
+         
+        try {
+         
+            if (!course.isEmpty()) {
+               db.setQuery(query);
+        
+            Dialogs.create().title("success").message("TIME TABLE ENTRY SAVED SUCCESSFULLY ").showInformation();
+               text_to_speech.sayText("time table entry has been saved ");   
+                     //after that we reload the pane back to have a fresh 
+           //untampered page
+         
+          timeTableCourseTextField.setText("");   
+                  //  planDaysConbo.getItems().clear();
+          this.timeTableDayCombo.getSelectionModel().selectFirst();
+           this.timeTableTimeCombo.getSelectionModel().selectFirst();
+            
+            }else {
+            
+              Dialogs.create().title("wrong input").message("please enter a course ").showInformation();
+
+            }
+          
+    
+       
+          
+
+           
+        } catch (Exception e) {
+     
+  //         Dialogs.create().title("Error").message("TIME TABLE RECORD WAS NOT SAVED").showError();
+           e.printStackTrace();
+           
+        }
+     
+        
+        
+    }
+
+    @FXML
+    private void clearTimeTableInputFields(ActionEvent event) {
+       
+           timeTableCourseTextField.setText(""); 
+           this.timeTableDayCombo.getSelectionModel().selectFirst();
+           this.timeTableTimeCombo.getSelectionModel().selectFirst();
+
+    }
+
+
+      /***
+        THIS METHOD IS USED TO EDIT THE RECORDS OF THE TIME TABLE
+        FROM THE TABLE WHEN THE RECORD HAS BEEN CHOOSEN ON THE 
+        TABLE
+        */
+
+      @FXML
+    private void saveUpdateTimeTableRecords(ActionEvent event) {
+        
+       
+       evaluateTimeTableUpdate();
+    
+       clearPanes();
+       viewTimeTablePane.setVisible(true);
+       displayTimeTableTable();
+       
+    }
+
+      /***
+        THIS METHOD RETURNS TO THE TIME TABLE TABLEVIEW THERE BY CANCELLING THE 
+        EDIT ACTION OF THE USER 
+        * 
+        */
+
+    @FXML
+    private void CancelEditTimeTableRecord(ActionEvent event) {
+    
+        
+        
+    }
+ 
+        @FXML
+    private void displayNewNotificationPane(ActionEvent event) {
+    
+         clearPanes();
+         btnSetNewNotification.setVisible(false);
+         btnDisplayViewPlanPane.setVisible(true);
+btnDisplayNotificationTableView.setVisible(true);
+        newNotificationPane.setVisible(true);
+            btnDisplayNewPlanPaneShortCut.setVisible(true);
+                     btnDisplayNewDiaryPaneShortcut.setVisible(true);
+                     btnDisplayNewTimeTablePaneShortCut.setVisible(true);
+                     btnDisplayNewNotificationPaneShortCut.setVisible(false);   
+        this.notificationDatePicker.setValue(LocalDate.now());
+        
+    
+    }
+    
+    //THE FOLLOWING MdisplayNewDiaryPaneETHOD IS USED TO SHOW A DIALOG ABOUT 
+    //THE USER WHEN THE AUTHOR BUTTON HAS BEEN CLICKED 
+    
+    @FXML
+    private void provideAuthorInfoToTheUser(ActionEvent event) {
+    
+            Dialogs.create().title("Eugene Egbe").masthead(""
+                    + "Eugene Egbe is a SOFTWARE ENGINEERING Aspirant at the "
+                    + "Faculty of Engineering at the university "
+                    + "of buea and he is also a member of unity "
+                    + "systems software development company").showInformation();
+    }
+      
+
+    //THIS METHOD IS USED TO SAVE THE NOTIFICATION THAT HAS BEEN 
+    //ENTERD USING THE TIME FROM THE HOMW DISPLAY LABEL AND 
+    //ALSO THE NOTE FROM THE NOTIFICATION LABEL AND WRITING THEM INTO THE 
+    //DATABASE
+    
+    
+    @FXML
+    private void saveNewNotification(ActionEvent event) throws ParseException {
+  
+   String not_date = sdf.format(sdf.parse(notificationDatePicker.getValue().toString()));
+   String notTime = homeTimeLabel.getText();
+   String notification = NewNotificationTextArea.getText();
+  
+   
+   //build the query to save the data 
+   
+  String query = "INSERT INTO fet.NOTIFICATION(fet.NOTIFICATION.NOT_DATE ,fet.NOTIFICATION.NOT_TIME,fet.NOTIFICATION.CONTENT)"
+               + "VALUES('"+not_date+"','"+notTime+"' , '" +notification +"')" ; 
+   
+        System.out.println(query);
+        
+        try {
+            
+            if(!not_date.isEmpty() && !notTime.isEmpty() && !notification.isEmpty()){
+            
+              db.setQuery(query);
+             Dialogs.create().title("success").message("NOTIFICATION SAVED SUCCESSFULLY ").showInformation();
+             text_to_speech.sayText("notification has been saved ");
+
+            
+            
+            }else{
+            
+          Dialogs.create().title("wrong input").message("please check all the fields  ").showInformation();
+   
+            }
+     
+             
+        } catch (Exception e) {
+        
+        e.printStackTrace();
+        
+        }
+        
+      NewNotificationTextArea.setText("");
+    
+    }
+
+    
+    @FXML
+    private void clearNewNotificationEntryField(ActionEvent event) {
+ 
+        //clear the input fields of the notification entry form
+        NewNotificationTextArea.setText("");
+        clearPanes();
+    }
+    
+    
+    //THIS METHOD SHOWS THE TABLE FOR NOTIFICATIONS FROM THE 
+    //NOTIFICATION TABLE IN THE DATABASE 
+    
+    @FXML
+    private void displayNotificationTableView(ActionEvent event) {
+    
+       clearPanes();
+       viewNotificationPane.setVisible(true);
+       btnSetNewNotification.setVisible(true);
+       
+       btnDisplayNotificationTableView.setVisible(false);
+       loadNotificationTable(); 
+    
+    }
+
+    
+    //THIS IS USED FOR TIME DISPLAY
+    
+    public void showTime(){
+  GregorianCalendar date = new GregorianCalendar();
+            
+  int second = date.get(Calendar.SECOND);
+ int  minute = date.get(Calendar.MINUTE);
+ int  hour = date.get(Calendar.HOUR);
+      
+      String time = String.valueOf(hour) + " : " + String.valueOf(minute)+ " : " + String.valueOf(second);
+ 
+
+        homeTimeLabel.setText(time);
+   
+        
+    }
+  
+    
+    
+    /***
+        THIS METHOD IS USED TO PLAY WITH THE VISIBILITY
+        OF THE INTERNAL PANES WITH TOGGLE WITH THE 
+        BUTTONS PRESSED
+  */
+
+    public void clearPanes(){
+    
+        homePageane.setVisible(false);
+        newPlanPane.setVisible(false);
+        viewPlanPane.setVisible(false);
+        newDiaryPane.setVisible(false);
+        newTimeTableContentPane.setVisible(false);
+        viewTimeTablePane.setVisible(false);
+        timeTableEditFrom.setVisible(false);
+        viewDiaryContentPane.setVisible(false);
+        newNotificationPane.setVisible(false);
+        viewNotificationPane.setVisible(false);
+        loginPane.setVisible(false);
+        accountSettingPane.setVisible(false); 
+        shortcutLabel.setVisible(true);
+        shortcutLabel.setDisable(false);
+        
+    }
+    
+     /***
+        THIS METHOD FILLS THE NEWPLAN PANE COMBO BOX AND
+        WILL BE CALLED WHEN THE PAGE LOADS IN THE METHOD 
+        THAT LOADS THE NEW PLANpANE
+  */
+    
+    public void loadDaysCombo(){
+    
+         try {
+           
+           planDaysConbo.getItems().clear();
+           
+       } catch (Exception e) {
+           
+       }
+       
+        String[] months = {"Monday","Tuesday","Wednesday", "Thursday" ,"Friday" , "Saturday" , "Sunday"};
+
+        
+         System.out.println(" FILLING THE DAYS COMBO BOX ITEMS ");
+         
+        for(String m : months){  
+             
+                 this.planDaysConbo.getItems().add(new Items.ComboItem(m,m));     
+            
+        }
+        
+         this.planDaysConbo.getSelectionModel().selectFirst();
+    
+         System.out.println(" DONE FILLING THE DAYS COMBO BOX"); 
+    
+    
+    }
+    
+        public void displayPlanTable(){
+ 
+     
+        try {
+            String query = " SELECT fet.PLAN.PLAN_ID, fet.PLAN.PLAN_DAY,fet.PLAN.CONTENT FROM fet.PLAN";
+            
+           tc.makeTable(query, planIDColumn ,planDayColumn, playActivityColumn, planTableView);
+        
+        } //end of housekeeping table display method
+        catch (SQLException ex) {
+            
+            System.out.println("FAILED TO LOAD THE TABLE FOR THE HOUSEKEEPING MODULE  ");
+            
+           ex.printStackTrace();
+        
+        }
+   
+    
+    }
+  
+        
+     /***
+        THIS METHOD DELETES AN ENTRY FROM THE PLAN TABLE
+        WHEN A PLAN IS SELECTED FROM THE PLAN TABLE 
+  */
+        
+ public void deletePlanRecordFromTable(){
+     
+                  String col1 = this.planTableView.getSelectionModel().getSelectedItem().col1.get();
+                  String col2 = this.planTableView.getSelectionModel().getSelectedItem().col2.get();
+                  String col3 = this.planTableView.getSelectionModel().getSelectedItem().col2.get();
+             
+          if(planTableView.getSelectionModel().getSelectedItem().col1.get() == null && col2==null && col3==null){
+          
+                Dialogs.create().masthead("").message("NO RECORD SELECTED FROM THE LIST ").showWarning();
+          
+          } else{
+          
+
+              
+             String query = "DELETE FROM fet.PLAN WHERE fet.PLAN.PLAN_ID ="+Integer.parseInt(col1)+"";
+              
+              Action confirmer = Dialogs.create().
+                    title("Delete confirmation").
+                    masthead(" you want to delete " +col2 + " plan").
+                    message("Are you sure you want to continue?").showConfirm();
+               
+                 
+           if (confirmer == Dialog.Actions.YES){
+          
+                 try {
+                     db.setQuery(query);
+                  Dialogs.create().message("PLAN DELETED SUCCESSFULLY ").showInformation();
+ 
+                 } catch (SQLException  ex) {
+                     
+                     System.out.println("COULD NOT EVALUATE CONFIRMATION----->");      
+                      ex.printStackTrace();
+               Dialogs.create().message("PLEASE SELECT A RECORD FORM THE TABLE ").showInformation();
+   
+                 
+                 }
+                
+                    }else{
+                              
+                           Dialogs.create().message("DELETE CANCELED ").showWarning();
+                      
+   
+                        }
+              
+           
+          }
+                
+    
+   
+   }   //end of the method that deletes an entry from the 
+
+
+ public void displayDiaryTable(){
+ 
+ try {
+            String query = " SELECT fet.DIARY.DIARY_ID, fet.DIARY.DIARY_DATE,fet.DIARY.CONTENT FROM fet.DIARY";
+            
+           tc.makeTable(query, diaryIDColumn ,diaryDateColumn, diaryContentColumn, diaryTableView);
+        
+        } //end of housekeeping table display method
+ 
+        catch (SQLException ex) {
+            
+            System.out.println("FAILED TO LOAD THE TABLE FOR DIARIES  ");
+            
+           ex.printStackTrace();
+        
+        }
+     
+ 
+ }
+  
+ public void deleteDiaryRecordFromTable(){
+ 
+ 
+  if(diaryTableView.getSelectionModel().getSelectedItems() == null){
+          
+                Dialogs.create().masthead("").message("NO RECORD SELECTED FROM THE LIST ").showWarning();
+          
+          } else{
+          
+             String col1 = this.diaryTableView.getSelectionModel().getSelectedItem().col1.get();
+             String col2 = this.diaryTableView.getSelectionModel().getSelectedItem().col2.get();
+             String col3 = this.diaryTableView.getSelectionModel().getSelectedItem().col2.get();
+              
+             String query = "DELETE FROM fet.DIARY WHERE fet.DIARY.DIARY_ID ="+Integer.parseInt(col1)+"";
+              
+              Action confirmer = Dialogs.create().
+                    title("Delete confirmation").
+                    masthead(" you want to delete " +col2 + " Diary Record").
+                    message("Are you sure you want to continue?").showConfirm();
+               
+                 
+           if (confirmer == Dialog.Actions.YES){
+          
+                 try {
+                     db.setQuery(query);
+                  Dialogs.create().message("DIARY RECORD DELETED SUCCESSFULLY ").showInformation();
+ 
+                 } catch (SQLException  ex) {
+                     
+                     System.out.println("COULD NOT EVALUATE CONFIRMATION----->");      
+                      ex.printStackTrace();
+                 
+                 }
+                
+                    }else{
+                              
+                           Dialogs.create().message("DIARY CONTENT DELETE CANCELED ").showWarning();
+                      
+   
+                        }
+              
+          }
+ 
+ }
+
+ public void loadTimeTableDayCombo(){
+ 
+  try {
+           
+           timeTableDayCombo.getItems().clear();
+           
+       } catch (Exception e) {
+         
+      Dialogs.create().message("PLEASE SELECT A DAY ").showInformation();
+
+       }
+       
+        String[] months = {"Monday","Tuesday","Wednesday", "Thursday" ,"Friday" , "Saturday" , "Sunday"};
+
+        
+         System.out.println(" FILLING THE DAYS COMBO BOX ITEMS ");
+         
+        for(String m : months){  
+             
+                 this.timeTableDayCombo.getItems().add(new Items.ComboItem(m,m));     
+            
+        }
+        
+         this.timeTableDayCombo.getSelectionModel().selectFirst();
+    
+         System.out.println(" DONE FILLING THE DAYS COMBO BOX"); 
+    
+ 
+ }
+
+ 
+ public void loadTimeTableTimeCombo(){
+ 
+      try {
+           
+          timeTableTimeCombo.getItems().clear();
+           
+       } catch (Exception e) {
+           
+       }
+       
+        String[] months = {"07-09 AM","09-11 AM","11-13 PM", "13-15 PM " ,"15-17 PM" , "17-19 PM"};
+
+        
+         System.out.println(" FILLING THE DAYS COMBO BOX ITEMS ");
+         
+        for(String m : months){  
+             
+                 this.timeTableTimeCombo.getItems().add(new Items.ComboItem(m,m));     
+            
+        }
+        
+         this.timeTableTimeCombo.getSelectionModel().selectFirst();
+    
+         System.out.println(" DONE FILLING THE DAYS COMBO BOX"); 
+    
+ 
+ 
+
+ 
+ }
+ 
+ public void displayTimeTableTable(){
+
+     try {
+            String query = " SELECT fet.TIME_TABLE.TIME_TABLE_ID, fet.TIME_TABLE.DAY,fet.TIME_TABLE.TIME_TABLE_TIME, fet.TIME_TABLE.COURSE_NAME FROM fet.TIME_TABLE";
+            
+           tc.makeTable(query, timeTableIDColumn ,timeTableDayColumn, timeTableTimeColumn,timeTableCourseNameColumn, timeTableTableView);
+        
+        } //end of housekeeping table display method
+ 
+        catch (SQLException ex) {
+            
+            System.out.println("FAILED TO LOAD THE TABLE FOR THE HOUSEKEEPING MODULE  ");
+            
+           ex.printStackTrace();
+        
+        } 
+
+}
+    
+ public void deleteTimeTalbeRecord(){
+ 
+      if(timeTableTableView.getSelectionModel().getSelectedItems() == null){
+          
+                Dialogs.create().masthead("").message("NO RECORD SELECTED FROM THE LIST ").showWarning();
+          
+          } else{
+          
+             String col1 = this.timeTableTableView.getSelectionModel().getSelectedItem().col1.get();
+             String col2 = this.timeTableTableView.getSelectionModel().getSelectedItem().col2.get();
+             String col3 = this.timeTableTableView.getSelectionModel().getSelectedItem().col2.get();
+             String col4 = this.timeTableTableView.getSelectionModel().getSelectedItem().col2.get();
+             
+             String query = "DELETE FROM fet.TIME_TABLE WHERE fet.TIME_TABLE.TIME_TABLE_ID ="+Integer.parseInt(col1)+"";
+              
+              Action confirmer = Dialogs.create().
+                    title("Delete confirmation").
+                    masthead(" you want to delete " +col3 + " time table record ").
+                    message("Are you sure you want to continue?").showConfirm();
+               
+                 
+           if (confirmer == Dialog.Actions.YES){
+          
+                 try {
+                     db.setQuery(query);
+                  Dialogs.create().message("COURSED RELEASED SUCCESSFULLY ").showInformation();
+ 
+                 } catch (SQLException  ex) {
+                     
+                     System.out.println("COULD NOT EVALUATE CONFIRMATION----->");      
+                      ex.printStackTrace();
+                 
+                 }
+                
+                    }else{
+                              
+                           Dialogs.create().message("COURSE DELETE CANCELED ").showWarning();
+                      
+   
+                        }
+              
+          }
+ 
+ }
+
+ //the following method loads the combo boxes in the edit time table 
+ //pane where time table records can be edited 
+ 
+  
+ public void loadeditTimeTableDayCombo(){
+ 
+  try {
+           
+           editTimeTableDayCombo.getItems().clear();
+           
+       } catch (Exception e) {
+         
+      Dialogs.create().message("PLEASE SELECT A DAY ").showInformation();
+
+       }
+       
+        String[] months = {"Monday","Tuesday","Wednesday", "Thursday" ,"Friday" , "Saturday" , "Sunday"};
+
+        
+         System.out.println(" FILLING THE DAYS COMBO BOX ITEMS ");
+         
+        for(String m : months){  
+             
+                 this.editTimeTableDayCombo.getItems().add(new Items.ComboItem(m,m));     
+            
+        }
+        
+         this.editTimeTableDayCombo.getSelectionModel().selectFirst();
+    
+         System.out.println(" DONE FILLING THE DAYS COMBO BOX"); 
+ 
+ 
+ }
+
+public void loadEditTimeTableTimeCombo(){
+
+try {
+           
+          EditTimeTableTimeCombo.getItems().clear();
+           
+       } catch (Exception e) {
+           
+       }
+       
+        String[] months = {"07-09 AM","09-11 AM","11-13 PM", "13-15 PM " ,"15-17 PM" , "17-19 PM"};
+
+        
+         System.out.println(" FILLING THE DAYS COMBO BOX ITEMS ");
+         
+        for(String m : months){  
+             
+                 this.EditTimeTableTimeCombo.getItems().add(new Items.ComboItem(m,m));     
+            
+        }
+        
+         this.EditTimeTableTimeCombo.getSelectionModel().selectFirst();
+    
+         System.out.println(" DONE FILLING THE DAYS COMBO BOX"); 
+    
+}
+
+
+// THIS METHOD EVALATED THE EDIT DONE ON THE FORM THAT IS TO BE USED 
+//TO EDIT THE TIME TABLE RECORDS FROM THE TABLE VIEW 
+
+public void evaluateTimeTableUpdate(){
+
+
+    
+        if(timeTableTableView.getSelectionModel().getSelectedItems() == null){
+          
+                Dialogs.create().masthead("").message("NO RECORD SELECTED FROM THE LIST ").showWarning();
+               
+
+        } else{
+          
+             String col1 = this.timeTableTableView.getSelectionModel().getSelectedItem().col1.get();
+             String col2 = this.timeTableTableView.getSelectionModel().getSelectedItem().col1.get();
+             String col3 = this.timeTableTableView.getSelectionModel().getSelectedItem().col1.get();
+             String col4 = this.timeTableTableView.getSelectionModel().getSelectedItem().col1.get();           
+
+//NOW WE NEED TO GET THE EDITED VALUES FROM THE EDITCOMBO BOXES
+        
+              Items.ComboItem ttdc =(Items.ComboItem) editTimeTableDayCombo.getSelectionModel().getSelectedItem();
+              Items.ComboItem tttc =(Items.ComboItem) EditTimeTableTimeCombo.getSelectionModel().getSelectedItem();
+            
+  //GET THE VALUE FROM THE TEXT VIEW FOR THE COURSE TEXTFIELD
+             String courseVal = editCourseTextField.getText();
+           
+              try {
+      
+           Action confirmer = Dialogs.create().
+                    title("Delete confirmation").
+                    masthead("you want to edit Record on "+col2).
+                    message("Are you sure you want to continue?").showConfirm();
+             
+           //LET US CONVERT ALL NECCESSARY VALUES TO INTEGER BEFORE STARTING THE QUERY 
+             
+             int ttid = Integer.parseInt(col1);
+            
+
+             if (confirmer == Dialog.Actions.YES){
+                     
+               if(!col2.equals(ttdc.getValue())){
+                   
+                   //update the day here 
+                     try {
+                    
+                  String q = "UPDATE fet.TIME_TABLE SET fet.TIME_TABLE.DAY ='"+ttdc.getValue()+"' WHERE fet.TIME_TABLE.TIME_TABLE_ID ="+ttid+"";
+                       
+                  System.out.println(q);
+                         
+                  db.setQuery(q);  
+                   
+                   } catch (Exception e) {
+                       System.out.println("COULD NOT UPDATE LEVEL"); 
+                      e.printStackTrace();
+                   }
+                 
+                   
+                   
+              
+               } else {
+               
+                   System.out.println("COULD NOT UPDATE THE EDIT LEVEL RECORD");
+               }
+               
+               if(!col3.equals(tttc.getValue())){
+                   try {
+                    
+                       //update the time here 
+                  String q = "UPDATE fet.TIME_TABLE SET fet.TIME_TABLE.TIME_TABLE_TIME = '"+tttc.getValue()+"' WHERE fet.TIME_TABLE.TIME_TABLE_ID ="+ttid+"";
+                       System.out.println(q);   
+               db.setQuery(q);   
+                   
+                   } catch (Exception e) {
+                       System.out.println("COULD NOT UPDATE MONTH"); 
+                      e.printStackTrace();
+                   }
+ 
+               
+               } else {
+                   
+                   System.out.println("COULD NOT UPDATE THE EDIT MONTH RECORD");
+              
+               }
+               
+               if(!col4.equals(courseVal)){   
+                   
+                   
+                   //update the course here
+                   try {
+                       
+                       String q = "UPDATE fet.TIME_TABLE SET fet.TIME_TABLE.COURSE_NAME = '"+courseVal+"' WHERE fet.TIME_TABLE.TIME_TABLE_ID ="+ttid+"";
+                      
+                       System.out.println(q);
+                       if(!courseVal.isEmpty()){
+                        db.setQuery(q);
+                        
+                       }else{
+                        
+                      Dialogs.create().message("Please fill in the course ").showConfirm();
+
+                       
+                       }
+                      
+                       
+                   } catch (Exception e) {
+                       
+                       System.out.println("COULD NOT UPDATE MONTH");
+                       
+                       e.printStackTrace();
+                   }
+
+               } else {   
+                   
+                   System.out.println("COULD NOT UPDATE THE EDIT HOUSEKEEPER1 RECORD");
+                   
+               }
+               
+            
+              
+          Dialogs.create().message("THE UPDATE WAS SUCCESFULLY DONE ").showConfirm();
+
+                    }else{
+                              
+                           Dialogs.create().message("EDIT CANCELED ").showWarning();
+
+                         }
+         
+             
+     //BUILD THE UPDATE QUERY USING THE INTEGER VALUE OF THE HOUSEKEEPING ID 
+           
+                
+             } catch (Exception e) {
+           
+              e.printStackTrace();
+              
+              System.out.println(" COULD NOT GET VALUES FROM EDIT COMBO BOXES ");
+                
+            
+            }
+             
+             //NOW WE CAN CALL THE METHODS THAT FILL THE OTHER COMBO BOXES SET THE VISIBILITY IF THE ID COMBO TO 0
+             
+
+             
+        }
+
+
+}
+
+public void updateTime() throws SQLException{
+
+  
+        Task dynamicTimeTask = new Task<Void>() {
+        
+              @Override    protected Void call() throws Exception {    
+                 
+                  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+              
+                  while (true) {         
+                
+                  updateMessage(sdf.format(new Date()));  
+              
+              try { Thread.sleep(100);      
+             
+              }
+              
+              catch (InterruptedException ex) {          
+                  
+                  break;
+              }        
+          }   
+                 return null;   
+                  
+             }
+             
+              
+        };    
+              homeTimeLabel.textProperty().bind(dynamicTimeTask.messageProperty());
+               provideNotification();
+              Thread t2 = new Thread(dynamicTimeTask);
+              
+              t2.setName("Tesk Time Updater");
+              t2.setDaemon(true);
+              t2.start();
+           
+
+              }
+
+
+public void loadNotificationTable(){
+
+    
+     try {
+      
+         //build the select query  notificationDateColumn
+        String query = " SELECT fet.NOTIFICATION.NOT_DATE, fet.NOTIFICATION.NOT_TIME , fet.NOTIFICATION.CONTENT,fet.NOTIFICATION.NOTIFICATION_ID FROM fet.NOTIFICATION ";
+        tc.makeTable(query, notificationDateColumn,notificationTimeColumn, NotificationContentColumn,notificationIDCol, notificationTableView);
+          
+     } catch (Exception e) {
+     
+         System.out.println("FAILED TO LOAD THE TABLE FOR NOTIFICATION NOTES  ");
+          e.printStackTrace();
+    
+    }
+    
+
+}
+
+public void provideNotification() throws SQLException{
+
+            SimpleDateFormat timeOnly = new SimpleDateFormat("HH:mm:ss");
+
+
+
+           String currentDate = dateOnly.format(dNow);
+
+           String currentTime = timeOnly.format(dNow);
+
+           String query=" SELECT fet.NOTIFICATION.CONTENT FROM fet.NOTIFICATION "
+                      + "  WHERE CAST(fet.NOTIFICATION.NOT_DATE AS VARCHAR(11)) = '"+currentDate+"'"
+                      + "  OR  CAST(fet.NOTIFICATION.NOT_TIME AS VARCHAR(9)) = '"+currentTime+"'";  
+
+            System.out.println(query);
+
+
+                db.setQuery(query);
+
+                if(db.getRowCount() > 0){
+
+                    String notification = (String) db.getValueAt(0,0);
+                    Dialogs.create().title("Notification").masthead("You Have A notification !").message(notification).showInformation();
+
+
+
+                }else{
+
+                    System.out.println("not yet!");
+
+                }
+
+     }
+
+    @FXML
+    private void displayLoginPane(ActionEvent event) {
+
+                                                    //this method is to display the login page of the app
+
+                                                    clearPanes();
+                                                    loginPane.setVisible(true);
+
+    }
+    
+       @FXML
+    private void saveAccountSetting(ActionEvent event) {
+        
+     //get the values from the name , password and confirm password textField
+        
+        String uname = saveuserNameTextField.getText();
+        String pfield = savePasswordTextField.getText();
+        String cPfield = saveConfirmPasswordTextField.getText();
+        
+        if (pfield.equals(cPfield) && !uname.isEmpty() && !pfield.isEmpty() && !cPfield.isEmpty() ) {
+            
+            String q = " INSERT INTO fet.ACCOUNT(fet.ACCOUNT.NAME , fet.ACCOUNT.PASSWORD) VALUES "
+                    
+                     + "('"+uname+"','"+cPfield+"')";
+            
+            try {
+                
+                System.out.println(q);
+                db.setQuery(q);
+                Dialogs.create().message("account information saved").showInformation() ;
+                
+             
+                saveuserNameTextField.setText("");
+                savePasswordTextField.setText("");
+                saveConfirmPasswordTextField.setText("");
+               
+                clearPanes();
+                loginPane.setVisible(true);
+                
+                saveuserNameTextField.clear();
+                savePasswordTextField.clear();
+                saveConfirmPasswordTextField.clear();
+                
+             
+               
+            } catch (Exception e) {
+          
+                e.printStackTrace();
+            }
+            
+        }else{
+        
+                 Dialogs.create().message("check that the passwords match !").showInformation() ;
+                 homePageane.setVisible(true);
+                 
+        }
+            
+        
+    }     
+ 
+
+  
+    @FXML
+    private void validateLoginCredentials(ActionEvent event) {
+        
+            //here the information into the database and then the validity is checked and then 
+            //login is allowed 
+
+         
+    String name = loginUserNameFieldInfo.getText();
+    String pass = loginPasswordFieldInfo.getText(); 
+  
+     loginUserNameFieldInfo.setText("");       loginPasswordFieldInfo.setText("");
+           
+     setDisable();
+
+            String selectq =" SELECT fet.ACCOUNT.ACCOUNT_ID FROM fet.ACCOUNT WHERE fet.ACCOUNT.NAME= '"+name+"' AND fet.ACCOUNT.PASSWORD = '"+pass+"'";
+
+            try {
+
+                System.out.println(selectq);
+
+                db.setQuery(selectq);
+
+                if (db.getRowCount() > 0) {
+
+
+//                              System.out.printf( "  %4s \t %s \n",db.getValueAt(i, 0) ,db.getValueAt(j, 1));
+                             
+                                           loginUserNameFieldInfo.setText("");
+                                           loginPasswordFieldInfo.setText(""); 
+                                           loginPane.setVisible(false);
+                                           newPlanPane.setVisible(true);
+                                           shortcutLabel.setDisable(false);
+                                           nameLabel.setText(name);
+                                           nameLabel.setVisible(true);
+                                           loadDaysCombo();
+                                           btnDisplayNewPlanPaneShortCut.setVisible(true);
+                                           btnDisplayNewDiaryPaneShortcut.setVisible(true);
+                                           btnDisplayNewTimeTablePaneShortCut.setVisible(true);
+                                           btnDisplayNewNotificationPaneShortCut.setVisible(true);   
+                                          
+                                           //display the plan pane and the code continues 
+
+                                           }
+                                               else{
+                                                    warningLabel.setText("try again!");
+//                                                                              Dialogs.create().message("sorry "+loginUserNameField.getText().toUpperCase()+" please check your details  ").showWarning();
+
+                                                    loginUserNameFieldInfo.setText("");
+                                                    loginPasswordFieldInfo.setText("");
+                                                                              
+//                                                                              break;
+
+                                                    } //end else 
+
+                                     } catch (Exception e) {
+                                     
+                                         warningLabel.setText("try again!");
+                                        
+                                        e.printStackTrace();
+
+                                   }
+        
+        
+    }
+
+    @FXML
+    private void cancelLoginCredentialsAndBackToHome(ActionEvent event) {
+        
+        //here the login is cancelled and then the home pane is returned 
+        
+        
+           Action confirmer = Dialogs.create().
+                    title("LOg out").
+                    masthead("You are about to logout ").
+                    message("Are you sure you want to continue?").showConfirm();
+       
+            if (confirmer == Dialog.Actions.YES){
+          
+                //here display the home pagePane
+                clearPanes();
+                homePageane.setVisible(true);
+                  
+                
+            }else{
+                              
+        Dialogs.create().message("Welcome Back  ").showInformation();
+             
+      }   
+                     loginUserNameFieldInfo.setText("");
+                     loginPasswordFieldInfo.setText("");  
+   }
+
+
+    public void setDisable(){
+    
+                            btnDisplayNewPlanPaneShortCut.setVisible(false);
+                            btnDisplayNewDiaryPaneShortcut.setVisible(false);
+                            btnDisplayNewTimeTablePaneShortCut.setVisible(false);
+                            btnDisplayNewNotificationPaneShortCut.setVisible(false);
+
+                           }
+
+    private void displayAccountingSettingPane(ActionEvent event) {
+
+                            clearPanes();
+                            accountSettingPane.setVisible(false); 
+    }
+
+ 
+
+    @FXML
+    private void CancelAccountingSettingPane(ActionEvent event) {
+       
+    clearPanes();
+  homePageane.setVisible(true);        
+    }
+
+    @FXML
+    private void displayAccountingSettingPaneFromHome(ActionEvent event) {
+   
+                saveuserNameTextField.setText("");
+                savePasswordTextField.setText("");
+                saveConfirmPasswordTextField.setText("");
+                clearPanes();
+                accountSettingPane.setVisible(true);
+    }
+
+    @FXML
+    private void setTryagainLabelEmpty(MouseEvent event) {
+          
+        warningLabel.setText("");
+    }
+
+    @FXML
+    private void setAllPlanVisible(Event event) {
+    btnDisplayNewPlanPane.setVisible(true);
+    btnDisplayViewPlanPane.setVisible(true);
+  
+    
+    }
+
+    @FXML
+    private void setAllDiaryVisible(Event event) {
+    btnDisplayNewDiaryPane.setVisible(true);
+    btnDisplayViewDiaryTablePane.setVisible(true);
+  
+ 
+    }
+
+    @FXML
+    private void setAllTimeTableVisible(Event event) {
+    btnDisplayNewTimeTablePane.setVisible(true);
+    btnDisplayViewTimeTablePane.setVisible(true);
+    btnDisplayEditTimeTableFormPane.setVisible(true);
+  
+    }
+
+    @FXML
+    private void setAllNotificationVisible(Event event) {
+    btnSetNewNotification.setVisible(true);
+    btnDisplayNotificationTableView.setVisible(true);
+     
+    }
+
+    @FXML
+    private void displayAccountingSettingPaneForNewAccountSetup(ActionEvent event) {
+        
+        
+        clearPanes();
+        accountSettingPane.setVisible(true);
+        setDisable();
+    }
+
+    @FXML
+   public void deleteNotificationFromTable(){
+     
+                  String col4 = this.notificationTableView.getSelectionModel().getSelectedItem().col4.get();
+                  String col2 = this.notificationTableView.getSelectionModel().getSelectedItem().col2.get();
+                  String col3 = this.notificationTableView.getSelectionModel().getSelectedItem().col3.get();
+             
+          if(notificationTableView.getSelectionModel().getSelectedItem().col1.get() == null || col2==null || col3==null){
+          
+                Dialogs.create().masthead("").message("NO RECORD SELECTED FROM THE LIST ").showWarning();
+          
+          } else{
+          
+
+              
+             String query = "DELETE FROM fet.NOTIFICATION WHERE fet.NOTIFICATION.NOTIFICATION_ID ="+Integer.parseInt(col4)+"";
+              
+              Action confirmer = Dialogs.create().
+                    title("Delete confirmation").
+                    masthead(" you want to delete " +col2 + " plan").
+                    message("Are you sure you want to continue?").showConfirm();
+               
+                 
+           if (confirmer == Dialog.Actions.YES){
+          
+                 try {
+                     db.setQuery(query);
+                  Dialogs.create().message("NOTIFICATION DELETED SUCCESSFULLY ").showInformation();
+                 loadNotificationTable(); 
+ 
+                 } catch (SQLException  ex) {
+                     
+                      System.out.println("COULD NOT EVALUATE CONFIRMATION----->");      
+                      ex.printStackTrace();
+               Dialogs.create().message("PLEASE SELECT A RECORD FORM THE TABLE ").showInformation();
+   
+                 
+                 }
+                
+                    }else{
+                              
+                           Dialogs.create().message("DELETE CANCELED ").showWarning();
+                      
+   
+                        }
+              
+           
+          }
+                
+    
+   
+   }   //end of the method that deletes an entry from the  
+    
+    
+    
+    
+
+}
+
