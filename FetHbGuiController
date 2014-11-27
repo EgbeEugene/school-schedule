@@ -347,10 +347,10 @@ public class FetHbGuiController implements Initializable {
                    
                     btnDisplayNewPlanPane.setVisible(false);
                     btnDisplayViewPlanPane.setVisible(true);
-                     btnDisplayNewPlanPaneShortCut.setVisible(false);
-                     btnDisplayNewDiaryPaneShortcut.setVisible(true);
-                     btnDisplayNewTimeTablePaneShortCut.setVisible(true);
-                     btnDisplayNewNotificationPaneShortCut.setVisible(true);      
+                     btnDisplayNewPlanPaneShortCut.setDisable(false);
+                     btnDisplayNewDiaryPaneShortcut.setDisable(true);
+                     btnDisplayNewTimeTablePaneShortCut.setDisable(true);
+                     btnDisplayNewNotificationPaneShortCut.setDisable(true);      
                      
           
     }
@@ -378,10 +378,10 @@ public class FetHbGuiController implements Initializable {
                      btnDisplayNewDiaryPane.setVisible(false);
                      btnDisplayNewDiaryPane.setVisible(true);
                      btnDisplayViewDiaryTablePane.setVisible(true);
-                     btnDisplayNewPlanPaneShortCut.setVisible(true);
-                     btnDisplayNewDiaryPaneShortcut.setVisible(false);
-                     btnDisplayNewTimeTablePaneShortCut.setVisible(true);
-                     btnDisplayNewNotificationPaneShortCut.setVisible(true);   
+                     btnDisplayNewPlanPaneShortCut.setDisable(true);
+                     btnDisplayNewDiaryPaneShortcut.setDisable(false);
+                     btnDisplayNewTimeTablePaneShortCut.setDisable(true);
+                     btnDisplayNewNotificationPaneShortCut.setDisable(true);   
         diaryDatePicker.setValue(LocalDate.now());
         
     
@@ -406,10 +406,10 @@ public class FetHbGuiController implements Initializable {
                      btnDisplayViewTimeTablePane.setVisible(true);
                      btnDisplayEditTimeTableFormPane.setVisible(true);
                      newTimeTableContentPane.setVisible(true);
-                      btnDisplayNewPlanPaneShortCut.setVisible(true);
-                     btnDisplayNewDiaryPaneShortcut.setVisible(true);
-                     btnDisplayNewTimeTablePaneShortCut.setVisible(false);
-                     btnDisplayNewNotificationPaneShortCut.setVisible(true);   
+                      btnDisplayNewPlanPaneShortCut.setDisable(true);
+                     btnDisplayNewDiaryPaneShortcut.setDisable(true);
+                     btnDisplayNewTimeTablePaneShortCut.setDisable(false);
+                     btnDisplayNewNotificationPaneShortCut.setDisable(true);   
           //load the days combo box here 
           loadTimeTableTimeCombo();
           loadTimeTableDayCombo();
@@ -758,10 +758,10 @@ public class FetHbGuiController implements Initializable {
          btnDisplayViewPlanPane.setVisible(true);
 btnDisplayNotificationTableView.setVisible(true);
         newNotificationPane.setVisible(true);
-            btnDisplayNewPlanPaneShortCut.setVisible(true);
-                     btnDisplayNewDiaryPaneShortcut.setVisible(true);
-                     btnDisplayNewTimeTablePaneShortCut.setVisible(true);
-                     btnDisplayNewNotificationPaneShortCut.setVisible(false);   
+            btnDisplayNewPlanPaneShortCut.setDisable(true);
+                     btnDisplayNewDiaryPaneShortcut.setDisable(true);
+                     btnDisplayNewTimeTablePaneShortCut.setDisable(true);
+                     btnDisplayNewNotificationPaneShortCut.setDisable(false);   
         this.notificationDatePicker.setValue(LocalDate.now());
         
     
@@ -1604,10 +1604,10 @@ public void provideNotification() throws SQLException{
                                            nameLabel.setText(name);
                                            nameLabel.setVisible(true);
                                            loadDaysCombo();
-                                           btnDisplayNewPlanPaneShortCut.setVisible(true);
-                                           btnDisplayNewDiaryPaneShortcut.setVisible(true);
-                                           btnDisplayNewTimeTablePaneShortCut.setVisible(true);
-                                           btnDisplayNewNotificationPaneShortCut.setVisible(true);   
+                                           btnDisplayNewPlanPaneShortCut.setDisable(true);
+                                           btnDisplayNewDiaryPaneShortcut.setDisable(true);
+                                           btnDisplayNewTimeTablePaneShortCut.setDisable(true);
+                                           btnDisplayNewNotificationPaneShortCut.setDisable(true);   
                                           
                                            //display the plan pane and the code continues 
 
@@ -1664,10 +1664,10 @@ public void provideNotification() throws SQLException{
 
     public void setDisable(){
     
-                            btnDisplayNewPlanPaneShortCut.setVisible(false);
-                            btnDisplayNewDiaryPaneShortcut.setVisible(false);
-                            btnDisplayNewTimeTablePaneShortCut.setVisible(false);
-                            btnDisplayNewNotificationPaneShortCut.setVisible(false);
+                            btnDisplayNewPlanPaneShortCut.setDisable(false);
+                            btnDisplayNewDiaryPaneShortcut.setDisable(false);
+                            btnDisplayNewTimeTablePaneShortCut.setDisable(false);
+                            btnDisplayNewNotificationPaneShortCut.setDisable(false);
 
                            }
 
